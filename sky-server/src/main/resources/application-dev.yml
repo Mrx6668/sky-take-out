@@ -11,3 +11,8 @@ sky:
     access-key-id: LTAI5tMagm7fiU5HiENMqUEM
     access-key-secret: nuKLcEAJYbVt8EQu64nd7hZk03N4Gp
     bucket-name: web-cqwm666
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+#    database: 0
