@@ -17,7 +17,7 @@ public class ShopController {
     RedisTemplate redisTemplate;
     private static final String key = "SHOP_STATUS";
 
-    @GetMapping
+    @GetMapping("/status")
     @ApiOperation("获取店铺营业状态")
     public Result<Integer> getShopStatus(){
         return Result.success((Integer) redisTemplate.opsForValue().get(key));
