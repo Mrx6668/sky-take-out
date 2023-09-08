@@ -4,6 +4,7 @@
 <mapper namespace="com.sky.mapper.ShoppingCartMapper">
 
 
+
     <select id="list" resultType="com.sky.entity.ShoppingCart">
         select * from shopping_cart
         <where>
@@ -13,4 +14,19 @@
             <if test="dishFlavor != null"> and dish_flavor = #{dishFlavor}</if>
         </where>
     </select>
+
+    <delete id="subShoppingCart">
+        delete from shopping_cart where user_id = #{currentId}
+        <if test="dishId != null"> and dish_id = #{dishId}</if>
+        <if test="setmealId != null"> and setmeal_id = #{setmealId}</if>
+        <if test="dishFlavor != null"> and dish_flavor = #{dishFlavor}</if>
+    </delete>
+<!--        delete from shopping_cart-->
+<!--        <where>-->
+<!--            userid = #{currentId}-->
+<!--            <if test="dishId != null"> and dish_id = #{dishId}</if>-->
+<!--            <if test="setmealId != null"> and setmeal_id = #{setmealId}</if>-->
+<!--            <if test="dishFlavor != null"> and dish_flavor = #{dishFlavor}</if>-->
+
+<!--        </where>-->
 </mapper>
