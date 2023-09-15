@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.sky.context.BaseContext;
 import com.sky.dto.ShoppingCartDTO;
 import com.sky.entity.Dish;
+import com.sky.entity.OrderDetail;
 import com.sky.entity.Setmeal;
 import com.sky.entity.ShoppingCart;
 import com.sky.mapper.DishMapper;
@@ -63,6 +64,37 @@ public class shoppingCartServiceImpl implements ShoppingCartService {
         //如果不存在，插入数据
 
 
+    }
+
+
+    public void addShoppingCart(ShoppingCartDTO shoppingCartDTO,List<OrderDetail> orderDetail) {
+        for (OrderDetail detail : orderDetail) {
+
+        }
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO,shoppingCart);
+        Long currentId = BaseContext.getCurrentId();
+        shoppingCart.setUserId(currentId);
+
+            //判断添加的是菜品还是套餐
+            Long dishId = shoppingCartDTO.getDishId();
+            if (dishId != null){
+                //添加的是菜品
+                Dish dish = dishMapper.getByid(dishId);
+                shoppingCart.setName(dish.getName());
+                shoppingCart.setImage(dish.getImage());
+                shoppingCart.setAmount(dish.getPrice());
+            }else {
+                //添加的是套餐
+                Long setmealId = shoppingCartDTO.getSetmealId();
+                Setmeal setmeal = setmealMapper.getById(setmealId);
+                shoppingCart.setName(setmeal.getName());
+                shoppingCart.setImage(setmeal.getImage());
+                shoppingCart.setAmount(setmeal.getPrice());
+            }
+            shoppingCart.setNumber(1);
+            shoppingCart.setCreateTime(LocalDateTime.now());
+            shoppingCartMapper.insert(shoppingCart);
     }
 
     @Override
