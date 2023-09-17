@@ -1,19 +1,17 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
-import com.sky.annotation.AutoFill;
-import com.sky.dto.OrdersDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import com.sky.entity.ShoppingCart;
-import com.sky.enumeration.OperationType;
 import com.sky.vo.OrderVO;
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -52,4 +50,7 @@ public interface OrderMapper {
 
     @Update("update orders set status = #{status} where id = #{id}")
     void setStatus(Long id, Integer status);
+
+    @Select("select * from orders where status = #{status} and order_time < #{time}")
+    List<Orders> getByStatusAndOrderTimeLT(Integer pendingPayment, LocalDateTime time);
 }

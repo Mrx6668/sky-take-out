@@ -53,3 +53,7 @@ sky:
     access-key-id: ${sky.alioss.access-key-id}
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
+  shop:
+    address: 河北省定州市西城区西关北街石油公司家属院
+  baidu:
+    ak: Qo2EGj6SkGGIZgphoneuf7XQKEUkKGI3
