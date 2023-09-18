@@ -19,6 +19,7 @@ import com.sky.service.ShoppingCartService;
 import com.sky.utils.HttpClientUtil;
 import com.sky.utils.WeChatPayUtil;
 import com.sky.vo.*;
+import com.sky.websocket.WebSocketServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,8 @@ public class OrderServiceImpl implements OrderService {
     private WeChatPayUtil weChatPayUtil;
     @Autowired
     private ShoppingCartService shoppingCartService;
-
+    @Autowired
+    private WebSocketServer webSocketServer;
     @Value("${sky.shop.address}")
     private String shopAddress;
 
@@ -178,6 +180,12 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderMapper.update(orders);
+
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("type",1);
+        map.put("orderId",OrderId);
+        map.put("content","id:"+OrderId);
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
     }
 
     @Override
