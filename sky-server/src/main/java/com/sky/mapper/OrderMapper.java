@@ -53,4 +53,6 @@ public interface OrderMapper {
 
     @Select("select * from orders where status = #{status} and order_time < #{time}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime time);
+
+   Double getOrderByTime(LocalDateTime beginTime, LocalDateTime endTime);
 }

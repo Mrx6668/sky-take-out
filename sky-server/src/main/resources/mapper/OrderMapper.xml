@@ -70,6 +70,7 @@
         order by order_time desc
     </select>
 
+
     <insert id="addShoppingCarts">
 
             insert into shopping_cart (name, image, user_id, dish_id, setmeal_id, dish_flavor, amount,number,create_time)
@@ -78,4 +79,19 @@
             (#{sp.name},#{sp.image}, #{sp.userId}, #{sp.dishId}, #{sp.setmealId}, #{sp.dishFlavor}, #{sp.amount},#{sp.number},#{sp.createTime})
         </foreach>
     </insert>
+
+    <select id="getOrderByTime" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            and status = 5
+            <if test="beginTime != null">
+                and order_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_time &lt;= #{endTime}
+            </if>
+
+
+        </where>
+    </select>
 </mapper>
