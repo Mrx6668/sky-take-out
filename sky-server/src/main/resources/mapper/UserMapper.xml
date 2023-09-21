@@ -5,4 +5,15 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sky.entity.User">
         insert into user (openid, create_time) values (#{openid}, #{createTime})
 </insert>
+    <select id="getUserSize" resultType="java.lang.Integer">
+        select count(id) from user
+        <where>
+            <if test="begin!=null">
+                and create_time &gt; #{begin}
+            </if>
+            <if test="end!=null">
+                and create_time &lt; #{end}
+            </if>
+        </where>
+    </select>
 </mapper>
