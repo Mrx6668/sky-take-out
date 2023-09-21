@@ -1,13 +1,13 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import com.sky.entity.ShoppingCart;
 import com.sky.vo.OrderVO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.sky.vo.SalesTop10;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,4 +55,12 @@ public interface OrderMapper {
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime time);
 
    Double getOrderByTime(LocalDateTime beginTime, LocalDateTime endTime);
+
+    Integer getOrderReport(LocalDateTime beginTime, LocalDateTime endTime, Integer status);
+
+    @Results({
+            @Result(column = "name", property = "name"),
+            @Result(column = "sum(number)",property = "number")
+    })
+    List<GoodsSalesDTO> getTop10(LocalDateTime beginTimes, LocalDateTime endTimes);
 }
